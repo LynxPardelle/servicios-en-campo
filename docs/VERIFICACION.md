@@ -10,4 +10,12 @@ Fecha: 2026-11-19.
 - Dependencias web de producción: auditoría sin hallazgos; los cinco lockfiles resuelven el mismo conjunto de dependencias.
 - Código nuevo; sin copiar datos, contenido ni marcas de los repositorios de origen.
 
-Las reglas de GitHub y las pruebas de promoción se comprobarán después de la creación del repositorio y su resultado se añadirá aquí. El despliegue AWS está desactivado. Identidad, persistencia de negocio, alojamiento web y el primer piloto siguen en el plan. Las pruebas puras no acreditan autorización ni transacciones distribuidas.
+GitHub tiene tres rulesets activos sin bypass; testing y main requieren PR, zoo/ci y su check de origen de GitHub Actions (app 15368). Los tres GitHub Environments están restringidos a sus ramas exactas. El despliegue AWS está desactivado. Identidad, persistencia de negocio, alojamiento web y el primer piloto siguen en el plan. Las pruebas puras no acreditan autorización ni transacciones distribuidas.
+
+## Configuración remota confirmada
+
+- integrity: https://github.com/LynxPardelle/servicios-en-campo/rules/27667624
+- testing: https://github.com/LynxPardelle/servicios-en-campo/rules/27667630
+- production: https://github.com/LynxPardelle/servicios-en-campo/rules/27667635
+
+ENABLE_AWS_DEPLOY=false comprobado como variable del repositorio. Las promociones se registran en el historial de pull requests y sus checks; los merge commits conservan el origen development → testing → main.
