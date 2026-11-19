@@ -1,36 +1,25 @@
-# Diagnóstico de disparos automáticos de Actions
+# Actions: incidencia inicial y recuperación verificada
 
-Fecha de comprobación: 2026-11-19.
+## Estado actual — 2026-11-19
 
-## Hechos
+La ejecución automática de CI por push terminó success: https://github.com/LynxPardelle/servicios-en-campo/actions/runs/44615082071 sobre 447048c38e9bc9289c204c093ff108318bbce811. El PR de salto development → main https://github.com/LynxPardelle/servicios-en-campo/pull/1 produjo zoo/promotion/production=failure por GitHub Actions app15368 y quedó BLOCKED. Se cerró sin fusionar. El run de procedencia está en https://github.com/LynxPardelle/servicios-en-campo/actions/runs/44615412101.
 
-- Repositorio público, Actions enabled y workflows activos en main.
-- ci.yml admite push/pull_request en development, testing y main, y workflow_dispatch.
-- promocion.yml admite pull_request_target opened/reopened/synchronize/edited/ready_for_review hacia testing y main; no hace checkout ni ejecuta código del PR.
-- GitHub recibió el PR #1 del propietario, fusionable, mismo repositorio y sin marcas para omitir CI.
-- No se observó ningún run automático de esos eventos durante la preparación. El cierre/reapertura se probó adicionalmente en servicios-en-campo sin producir un run.
-- La ejecución manual 44594853888 terminó success.
-- Los intentos de actualización directa de testing y main recibieron Repository rule violations (HTTP 422).
-- Las políticas explícitas de eventos están registradas en .github/settings-reference.json.
-- La ausencia de ejecuciones no tiene causa confirmada; no se atribuye a GITHUB_TOKEN ni a un incidente general de GitHub.
-- El navegador disponible no tenía sesión de GitHub. No se inició ni modificó autenticación.
-- Los PR de diagnóstico se cerraron sin fusionarse. Las protecciones se conservaron.
+Se usó una sonda mínima de eventos y se comprobaron las ejecuciones de los workflows existentes. La sonda se eliminó antes de promover la base. El YAML de CI y el gate de procedencia eran válidos; no se atribuye la ausencia de eventos inicial a una causa no confirmada. Los resultados posteriores a su retirada y las promociones válidas se consultan en el historial de Actions/PR del repositorio.
 
-## Reproducción y evidencia para soporte
+No se añadieron bypass actors, no se quitaron checks y no se habilitó AWS. Las políticas explícitas permanecen: ci.yml acepta push/pull_request/workflow_dispatch; promocion.yml sólo pull_request_target y sólo lee metadatos.
 
-1. Con sesión web del propietario, abrir un PR de development a testing con un cambio de documentación y comprobar si aparecen zoo/ci y zoo/promotion/testing.
-2. Si faltan, registrar evento, hora UTC, actor, SHA, workflow IDs, políticas y respuesta de Actions.
-3. Comparar con una ejecución manual de ci.yml sobre la misma rama. No quitar reglas ni declarar aprobación de origen basándose sólo en CI.
-4. Adjuntar a GitHub Support la evidencia pública de este repositorio. Este documento no se envió a soporte.
+## Reproducción de la cadena
 
-PR: https://github.com/LynxPardelle/servicios-en-campo/pull/1
+1. Integrar el cambio en development y esperar zoo/ci automático del commit.
+2. Abrir PR development → testing. Esperar zoo/ci y zoo/promotion/testing del PR actual.
+3. Fusionar con merge commit. Abrir PR testing → main y esperar zoo/ci y zoo/promotion/production.
+4. Fusionar sin opciones de bypass. Verificar los runs push de los carriles y conservar el merge SHA.
+5. Un PR development → main debe fallar. Una rama feature o un fork no puede sustituir el origen permitido.
 
-CI manual: https://github.com/LynxPardelle/servicios-en-campo/actions/runs/44594853888
+workflow_dispatch sirve para diagnóstico; GitHub no lo evalúa como check obligatorio de un PR. Usar eventos genuinos y el check de la revisión actual. No usar estados emitidos por un token personal para suplantar la app requerida.
 
-API: GET /repos/LynxPardelle/servicios-en-campo/actions/workflows ; GET /repos/LynxPardelle/servicios-en-campo/actions/runs ; GET /repos/LynxPardelle/servicios-en-campo/pulls/1 ; GET /repos/LynxPardelle/servicios-en-campo/commits/<sha>/check-runs
+## Antecedente
 
-[Diagnóstico oficial](https://docs.github.com/en/actions/how-tos/troubleshoot-workflows) · [Eventos](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows) · [Políticas de Actions](https://docs.github.com/en/rest/actions/policies) · [GitHub Support](https://support.github.com/contact)
+En la preparación inicial se observaron CI manuales correctos y cero runs automáticos para los eventos generados entonces. Se conservaron las reglas y se documentó el límite. La comprobación actual reemplaza ese estado pendiente y guarda evidencia en actions-proof.json.
 
-## Operación mientras se investiga
-
-Se puede continuar en development y ejecutar localmente npm test, npm run test:web y npm run build:web. También se puede ejecutar gh workflow run ci.yml --ref development --repo LynxPardelle/servicios-en-campo. La promoción sigue esperando sus checks obligatorios; una ejecución manual de CI no sustituye el gate de procedencia. AWS permanece desactivado.
+[Checks obligatorios](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/troubleshooting-required-status-checks#checks-from-some-workflow-jobs-are-not-evaluated) · [Eventos de Actions](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)
