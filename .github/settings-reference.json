@@ -1,0 +1,106 @@
+{
+  "repository": "LynxPardelle/servicios-en-campo",
+  "defaultBranch": "main",
+  "environments": {
+    "development": "development",
+    "testing": "testing",
+    "production": "main"
+  },
+  "rulesetIds": {
+    "integrity": 27667624,
+    "testing": 27667630,
+    "production": 27667635
+  },
+  "requiredChecks": {
+    "testing": [
+      "zoo/ci",
+      "zoo/promotion/testing"
+    ],
+    "main": [
+      "zoo/ci",
+      "zoo/promotion/production"
+    ]
+  },
+  "checkIntegrationId": 15368,
+  "bypassActors": [],
+  "requiredApprovals": 0,
+  "deployEnabled": false,
+  "actionsPolicies": [
+    {
+      "id": 16286,
+      "name": "ZooBeriah - promocion por metadatos",
+      "target": "actions",
+      "source_type": "Repository",
+      "source": "LynxPardelle/servicios-en-campo",
+      "enforcement": "active",
+      "conditions": {
+        "workflow_path": {
+          "exclude": [],
+          "include": [
+            ".github/workflows/promocion.yml"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "restrict_action_events",
+          "parameters": {
+            "allowed_events": [
+              "pull_request_target"
+            ]
+          }
+        }
+      ],
+      "node_id": "MDE0OkFjdGlvbnNSdWxlc2V0MTYyODY=",
+      "created_at": "2026-11-19T13:12:42.448-06:00",
+      "updated_at": "2026-11-19T13:12:42.584-06:00",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/LynxPardelle/servicios-en-campo/actions/policies/16286"
+        },
+        "html": {
+          "href": "https://github.com/LynxPardelle/servicios-en-campo/settings/actions/rules/16286"
+        }
+      }
+    },
+    {
+      "id": 16291,
+      "name": "ZooBeriah - eventos de CI y entrega",
+      "target": "actions",
+      "source_type": "Repository",
+      "source": "LynxPardelle/servicios-en-campo",
+      "enforcement": "active",
+      "conditions": {
+        "workflow_path": {
+          "exclude": [],
+          "include": [
+            ".github/workflows/ci.yml"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "restrict_action_events",
+          "parameters": {
+            "allowed_events": [
+              "push",
+              "pull_request",
+              "workflow_dispatch"
+            ]
+          }
+        }
+      ],
+      "node_id": "MDE0OkFjdGlvbnNSdWxlc2V0MTYyOTE=",
+      "created_at": "2026-11-19T13:13:53.056-06:00",
+      "updated_at": "2026-11-19T13:13:53.190-06:00",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/LynxPardelle/servicios-en-campo/actions/policies/16291"
+        },
+        "html": {
+          "href": "https://github.com/LynxPardelle/servicios-en-campo/settings/actions/rules/16291"
+        }
+      }
+    }
+  ]
+}
