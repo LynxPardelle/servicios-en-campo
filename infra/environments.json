@@ -1,0 +1,21 @@
+{
+  "development": {
+    "branch": "development",
+    "stage": "development",
+    "samConfigEnv": "development",
+    "stackName": "servicios-en-campo-development"
+  },
+  "testing": {
+    "branch": "testing",
+    "stage": "testing",
+    "samConfigEnv": "testing",
+    "stackName": "servicios-en-campo-testing"
+  },
+  "production": {
+    "branch": "main",
+    "stage": "production",
+    "samConfigEnv": "production",
+    "stackName": "servicios-en-campo-production"
+  }
+}
+

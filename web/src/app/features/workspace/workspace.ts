@@ -1,0 +1,4 @@
+import {Component,inject} from '@angular/core';
+import {HealthStore} from './health.store';
+@Component({selector:'app-workspace',template:`<main><p class="brand">ZooBeriah Systems</p><h1>Servicios en Campo</h1><p class="lead">Coordina solicitudes, visitas y evidencia de atención para tu equipo.</p><section aria-labelledby="connection"><h2 id="connection">Conexión al servicio</h2><div aria-live="polite" aria-atomic="true">@if(store.loading()){<p>Comprobando conexión…</p>}@else if(store.error()){<p role="alert">{{store.error()}}</p>}@else if(store.health()){<p>Servicio disponible · {{store.health()?.stage}}</p>}</div><button type="button" (click)="store.refresh()" [disabled]="store.loading()">Comprobar conexión</button></section><p>Esta versión contiene la base inicial. Los flujos de trabajo se incorporarán por etapas.</p></main>`})
+export class Workspace{readonly store=inject(HealthStore);constructor(){void this.store.refresh();}}

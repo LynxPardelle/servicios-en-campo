@@ -1,0 +1,34 @@
+name: Cadena de promoción
+
+'on':
+  pull_request_target:
+    branches: [testing, main]
+    types: [opened, reopened, synchronize, edited, ready_for_review]
+
+permissions: {}
+
+jobs:
+  validate:
+    name: ${{ github.base_ref == 'testing' && 'zoo/promotion/testing' || 'zoo/promotion/production' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Verificar ramas y repositorio del pull request
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+
+          with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as file:
+              pr = json.load(file)["pull_request"]
+
+          head = pr["head"]
+          base = pr["base"]
+          expected = {"testing": "development", "main": "testing"}.get(base["ref"])
+          same_repository = head["repo"] is not None and head["repo"]["id"] == base["repo"]["id"]
+          if expected is None or not same_repository or head["ref"] != expected:
+              print("El PR debe venir de la rama autorizada del mismo repositorio.")
+              raise SystemExit(1)
+          print(f"Promoción autorizada de {expected} a {base['ref']}.")
+          PY

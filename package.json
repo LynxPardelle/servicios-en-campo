@@ -1,0 +1,17 @@
+{
+  "name": "servicios-en-campo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.15.0 <25"
+  },
+  "scripts": {
+    "test": "node --test services/health/index.test.mjs services/domain/*.test.mjs tools/*.test.mjs",
+    "check:config": "node tools/check-config.mjs",
+    "test:web": "npm --prefix web test -- --watch=false",
+    "build:web": "npm --prefix web run build",
+    "dev:api": "node services/local-server.mjs",
+    "dev:web": "npm --prefix web start -- --port 4200 --proxy-config proxy.conf.json"
+  }
+}

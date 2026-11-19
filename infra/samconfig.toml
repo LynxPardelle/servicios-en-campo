@@ -1,0 +1,44 @@
+version = 0.1
+
+[development.global.parameters]
+stack_name = "servicios-en-campo-development"
+template_file = "template.yaml"
+
+[development.build.parameters]
+cached = false
+
+[development.deploy.parameters]
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = true
+resolve_s3 = true
+fail_on_empty_changeset = false
+parameter_overrides = "Stage=development"
+
+[testing.global.parameters]
+stack_name = "servicios-en-campo-testing"
+template_file = "template.yaml"
+
+[testing.build.parameters]
+cached = false
+
+[testing.deploy.parameters]
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = true
+resolve_s3 = true
+fail_on_empty_changeset = false
+parameter_overrides = "Stage=testing"
+
+[production.global.parameters]
+stack_name = "servicios-en-campo-production"
+template_file = "template.yaml"
+
+[production.build.parameters]
+cached = false
+
+[production.deploy.parameters]
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = true
+resolve_s3 = true
+fail_on_empty_changeset = false
+parameter_overrides = "Stage=production"
+

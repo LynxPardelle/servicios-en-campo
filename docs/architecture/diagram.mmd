@@ -1,0 +1,10 @@
+flowchart LR
+    User["Usuario autorizado"] --> Web["Angular + SignalStore"]
+    Web --> Api["API Gateway HTTP API"]
+    Api --> Health["Lambda health implementada"]
+    Web -. "flujo de negocio pendiente" .-> Auth["Cognito JWT + membresía"]
+    Auth -.-> Service["Operación y reservas"]
+    Service -.-> Domain["Dominio puro implementado"]
+    Service -. "persistencia pendiente" .-> Table["DynamoDB por servicio"]
+    Service -. "evidencia pendiente" .-> Bucket["S3 privado"]
+
