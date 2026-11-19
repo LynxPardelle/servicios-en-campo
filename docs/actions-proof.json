@@ -1,0 +1,37 @@
+{
+  "verifiedAt": "2026-11-19",
+  "automaticCi": {
+    "name": "servicios-en-campo",
+    "runId": 44615082071,
+    "url": "https://github.com/LynxPardelle/servicios-en-campo/actions/runs/44615082071",
+    "sha": "447048c38e9bc9289c204c093ff108318bbce811",
+    "event": "push",
+    "conclusion": "success"
+  },
+  "rejectedDirectPromotion": {
+    "repo": "servicios-en-campo",
+    "pr": 1,
+    "prUrl": "https://github.com/LynxPardelle/servicios-en-campo/pull/1",
+    "headSha": "447048c38e9bc9289c204c093ff108318bbce811",
+    "checkName": "zoo/promotion/production",
+    "appId": 15368,
+    "checkUrl": "https://github.com/LynxPardelle/servicios-en-campo/actions/runs/44615412101/job/135882638472",
+    "checkId": 135882638472,
+    "conclusion": "failure",
+    "blocked": true,
+    "mergeStateStatus": "BLOCKED",
+    "verifiedByRoot": true,
+    "mergeStateEvidence": "Root observó BLOCKED con PR OPEN y este mismo HEAD antes de cerrar. La lectura independiente verificó el check nativo y el cierre posterior.",
+    "state": "closed",
+    "merged": false,
+    "error": null,
+    "closedHeadSha": "447048c38e9bc9289c204c093ff108318bbce811",
+    "observedAt": "2026-11-19T21:09:53.8064312Z",
+    "runUrl": "https://github.com/LynxPardelle/servicios-en-campo/actions/runs/44615412101",
+    "event": "pull_request_target"
+  },
+  "requiredAppId": 15368,
+  "protectionsChanged": false,
+  "temporaryProbeRemoved": true,
+  "positivePromotionEvidence": "GitHub pull request history: development -> testing -> main"
+}

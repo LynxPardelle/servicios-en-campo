@@ -23,3 +23,11 @@ El job de despliegue depende de CI, comprueba la rama y sólo despliega el backe
 Revisar Settings → Rules → Rulesets y Settings → Environments antes de promover. La evidencia de esta preparación se guarda en docs/VERIFICACION.md. Para revertir: commit de revert en development y promoción por testing y main, sin borrar ni reescribir los carriles. Tablas y buckets tienen retención; revertir código no revierte datos.
 
 [Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) · [OIDC en AWS](https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws)
+
+## Estado de la preparación
+
+Las reglas remotas y los ambientes están activos. CI automático por push pasó y el gate negativo de procedencia se verificó con un evento pull_request_target. Ver [verificación](VERIFICACION.md) y [eventos de Actions](ACTIONS-EVENTOS.md). La cadena válida se comprueba mediante PR y checks obligatorios, conservando los resultados en el historial de GitHub.
+
+## Checks que habilitan un PR
+
+Los checks obligatorios deben provenir de eventos push, pull_request o pull_request_target de la revisión correspondiente. workflow_dispatch sirve para diagnóstico y no sustituye el check obligatorio de un PR.
