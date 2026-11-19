@@ -1,0 +1,15 @@
+name: Event admission probe
+on:
+  push:
+    branches: [development]
+  pull_request:
+    branches: [testing, main]
+permissions: {}
+jobs:
+  probe:
+    name: zoo/event-probe
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Record triggering event
+        run: printf 'event=%s ref=%s\n' "$GITHUB_EVENT_NAME" "$GITHUB_REF_NAME"
